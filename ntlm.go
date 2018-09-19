@@ -103,12 +103,6 @@ func WrapDialContext(dialContext DialContext, proxyAddress, proxyUsername, proxy
 			debugf("ntlm> Could not read response from proxy: %s", err)
 			return conn, err
 		}
-		_, err = ioutil.ReadAll(resp.Body)
-		if err != nil {
-			debugf("ntlm> Could not read response body from proxy: %s", err)
-			return conn, err
-		}
-		resp.Body.Close()
 		if resp.StatusCode != http.StatusOK {
 			debugf("ntlm> Expected %d as return status, got: %d", http.StatusOK, resp.StatusCode)
 			return conn, errors.New(http.StatusText(resp.StatusCode))
