@@ -40,6 +40,7 @@ func WrapDialContext(dialContext DialContext, proxyAddress, proxyUsername, proxy
 		debugf("ntlm> NTLM negotiate message: '%s'", base64.StdEncoding.EncodeToString(negotiateMessage))
 		header := make(http.Header)
 		header.Set("Proxy-Authorization", fmt.Sprintf("NTLM %s", base64.StdEncoding.EncodeToString(negotiateMessage)))
+		header.Set("Proxy-Connection", "Keep-Alive")
 		connect := &http.Request{
 			Method: "CONNECT",
 			URL:    &url.URL{Opaque: addr},
